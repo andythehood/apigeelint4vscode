@@ -1,0 +1,117 @@
+{
+  "name": "apigeelint4vscode",
+  "displayName": "Apigeelint for VS Code",
+  "publisher": "andythehood",
+  "description": "Run apigeelint on your Apigee API Proxy",
+  "icon": "images/api-management-platform.png",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andythehood/apigeelint-vscode"
+  },
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Linters"
+  ],
+  "activationEvents": [
+    "onCommand:apigeelint.runApigeelint"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "apigeelint.runApigeelint",
+        "title": "Run Apigeelint"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "apigeelint.runApigeelint",
+          "when": "editorHasSelection"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "apigeelint.runApigeelint",
+          "group": "apigeeLintGroup@1",
+          "when": "resourceFilename == apiproxy"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Apigee Lint",
+      "properties": {
+        "apigeelint.formatter": {
+          "type": "string",
+          "default": "stylish.js",
+          "enum": [
+            "checkstyle.js",
+            "codeframe.js",
+            "compact.js",
+            "html.js",
+            "jslint-xml.js",
+            "json.js",
+            "junit.js",
+            "pdf.js",
+            "stylish.js",
+            "table.js",
+            "tap.js",
+            "unix.js",
+            "visualstudio.js"
+          ],
+          "enumDescriptions": [
+            "CheckStyle XML reporter",
+            "Codeframe reporter",
+            "Compact reporter",
+            "HTML reporter",
+            "JSLint XML reporter",
+            "JSON reporter",
+            "jUnit reporter",
+            "PDF style formatter",
+            "Stylish reporter",
+            "Table reporter",
+            "TAP reporter",
+            "Unix-style formatter",
+            "Visual Studio compatible formatter"
+          ]
+        },
+        "apigeelint.profile": {
+          "type": "string",
+          "default": "apigeex",
+          "enum": [
+            "apigeex",
+            "apigee"
+          ],
+          "enumDescriptions": [
+            "Apigee X and Apigee Hybrid",
+            "Apigee Edge"
+          ]
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.73.0",
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.3",
+    "@vscode/test-electron": "^2.2.0"
+  }
+}
