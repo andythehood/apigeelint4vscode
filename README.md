@@ -14,8 +14,8 @@ This section describes requirements and how to install and configure them.
 
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `apigeelint.formatter`: The report formatter to use (default: visualstudio.js)
+* `apigeelint.profile`: The Apigee proxy profile type: ApigeeX or ApigeeEdge
 
 ## Known Issues
 
