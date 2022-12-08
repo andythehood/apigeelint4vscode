@@ -14,9 +14,11 @@ To use, right-click on the apiproxy folder in the bundle and select 'Run Apigeel
 
 ## Requirements
 
-This section describes requirements and how to install and configure them.\
-\
-npm install --location=global apigeelint
+This extension requires apigeelint to be installed. This can be installed using the command:\
+
+npm install --location=global apigeelint\
+
+See https://www.npmjs.com/package/apigeelint for additional details.
 
 ## Extension Settings
 This extension contributes the following settings:
