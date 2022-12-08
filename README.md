@@ -4,7 +4,7 @@ Apigeelint for VS Code
 
 ## Features
 
-Runs Apigeelint (https://www.npmjs.com/package/apigeelint) on an API Proxy bundle.\
+Runs Apigeelint (https://www.npmjs.com/package/apigeelint) on an API Proxy bundle.
 
 To use, right-click on the apiproxy folder in the bundle and select 'Run Apigeelint'
 
@@ -14,9 +14,9 @@ To use, right-click on the apiproxy folder in the bundle and select 'Run Apigeel
 
 ## Requirements
 
-This extension requires apigeelint to be installed. This can be installed using the command:\
+This extension requires apigeelint to be installed. This can be installed using the command:
 
-npm install --location=global apigeelint\
+npm install --location=global apigeelint
 
 See https://www.npmjs.com/package/apigeelint for additional details.
 

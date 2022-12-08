@@ -6,6 +6,9 @@ import * as fs from 'fs';
 import * as cp from 'child_process';
 import * as vscode from 'vscode';
 
+
+let outputChannel: vscode.OutputChannel;
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -14,6 +17,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "apigeelint" is now active!');
 
+	outputChannel = vscode.window.createOutputChannel('Apigeelint Output');
+
+
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
@@ -21,11 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
 		// vscode.window.showInformationMessage('Running ApigeeLint ...',);
-
-		const outputChannel: vscode.OutputChannel = vscode.window.createOutputChannel('apigee');
-		outputChannel.show(true);
-
-
 
 
 		let proxyPath: string = uri.fsPath;
@@ -36,12 +37,13 @@ export function activate(context: vscode.ExtensionContext) {
 			const getDirectories = (source: string) =>
 				fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory);
 
-			outputChannel.appendLine(getDirectories(proxyPath)[0]);
+			// outputChannel.appendLine(getDirectories(proxyPath)[0]);
 
 			while (!(proxyPath = getDirectories(proxyPath)[0]).endsWith('apiproxy')) {
 			}
 		}
 		outputChannel.appendLine('INFO: Running Apigeelint on ' + proxyPath);
+		outputChannel.show(true);
 
 		let formatter: string = vscode.workspace.getConfiguration('apigeelint')!.get('formatter')!;
 		outputChannel.appendLine('INFO: Formatter: ' + formatter);
