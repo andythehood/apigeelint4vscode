@@ -41,19 +41,20 @@ export function activate(context: vscode.ExtensionContext) {
 			while (!(proxyPath = getDirectories(proxyPath)[0]).endsWith('apiproxy')) {
 			}
 		}
-		outputChannel.appendLine("Running Apigeelint on " + proxyPath);
-
+		outputChannel.appendLine('INFO: Running Apigeelint on ' + proxyPath);
 
 		let formatter: string = vscode.workspace.getConfiguration('apigeelint')!.get('formatter')!;
 		outputChannel.appendLine('INFO: Formatter: ' + formatter);
 
 		let profile: string = vscode.workspace.getConfiguration('apigeelint')!.get('profile')!;
 		outputChannel.appendLine('INFO: Profile: ' + profile);
+
+		let externalPluginsDirectory = vscode.workspace.getConfiguration('apigeelint')!.get('externalPluginsDirectory')!;
+		outputChannel.appendLine('INFO: External Plugins Directory: ' + externalPluginsDirectory);
 		outputChannel.appendLine('');
 
-
 		try {
-			const commandLine = 'apigeelint -s . -f ' + formatter + ' --profile ' + profile;
+			const commandLine = 'apigeelint -s . -f ' + formatter + ' --profile ' + profile + (externalPluginsDirectory ? ' -x ' + externalPluginsDirectory : '');
 
 			const { stdout, stderr } = await exec(commandLine, { cwd: proxyPath });
 			if (stderr && stderr.length > 0) {

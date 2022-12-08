@@ -46,6 +46,7 @@
       "properties": {
         "apigeelint.formatter": {
           "type": "string",
+          "description": "The report formatter to use",
           "default": "stylish.js",
           "enum": [
             "checkstyle.js",
@@ -80,6 +81,7 @@
         },
         "apigeelint.profile": {
           "type": "string",
+          "description": "Select apigeelint profile for ApigeeX/Hybrid or Edge",
           "default": "apigeex",
           "enum": [
             "apigeex",
@@ -89,6 +91,11 @@
             "Apigee X and Apigee Hybrid",
             "Apigee Edge"
           ]
+        },
+        "apigeelint.externalPluginsDirectory": {
+          "type": "string",
+          "default": "",
+          "description": "Full path to an external plugins directory"
         }
       }
     }

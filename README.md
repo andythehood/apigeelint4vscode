@@ -8,7 +8,9 @@ Runs Apigeelint (https://www.npmjs.com/package/apigeelint) on an API Proxy bundl
 
 To use, right-click on the apiproxy folder in the bundle and select 'Run Apigeelint'
 
-![image](./images/apigeelint4vscode.png)
+![Screenshot](https://raw.githubusercontent.com/andythehood/apigeelint4vscode/main/images/apigeelint4vscode.png)
+
+
 
 ## Requirements
 
@@ -21,6 +23,7 @@ This extension contributes the following settings:
 
 * `apigeelint.formatter`: The report formatter to use (default: visualstudio.js)
 * `apigeelint.profile`: The Apigee proxy profile type: ApigeeX or ApigeeEdge
+* `apigeelint.externalPluginsDirectory`: Full path to an external plugins directory
 
 ## Known Issues
 
