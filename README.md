@@ -1,17 +1,22 @@
 # apigeelint
 
-Apigee Lint for VS Code
+Apigeelint for VS Code
 
 ## Features
 
-Runs Apigee Lint.
+Runs Apigeelint (https://www.npmjs.com/package/apigeelint) on an API Proxy bundle.\
+
+To use, right-click on the apiproxy folder in the bundle and select 'Run Apigeelint'
+
+![image](./images/apigeelint4vscode.png)
 
 ## Requirements
 
-This section describes requirements and how to install and configure them.
+This section describes requirements and how to install and configure them.\
+\
+npm install --location=global apigeelint
 
 ## Extension Settings
-
 This extension contributes the following settings:
 
 * `apigeelint.formatter`: The report formatter to use (default: visualstudio.js)
@@ -27,7 +32,7 @@ Releases
 
 ### 0.0.1
 
-Initial release of Apigee Lint for VS Code
+Initial release of Apigeelint for VS Code
 
 
 
