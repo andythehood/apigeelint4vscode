@@ -30,7 +30,7 @@
       "commandPalette": [
         {
           "command": "apigeelint.runApigeelint",
-          "when": "editorHasSelection"
+          "when": "false"
         }
       ],
       "explorer/context": [
