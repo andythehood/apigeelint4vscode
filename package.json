@@ -7,7 +7,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andythehood/apigeelint-vscode"
+    "url": "https://github.com/andythehood/apigeelint4vscode"
   },
   "engines": {
     "vscode": "^1.73.0"
