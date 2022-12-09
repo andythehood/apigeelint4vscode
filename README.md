@@ -24,8 +24,9 @@ See https://www.npmjs.com/package/apigeelint for additional details.
 This extension contributes the following settings:
 
 * `apigeelint.formatter`: The report formatter to use (default: visualstudio.js)
-* `apigeelint.profile`: The Apigee proxy profile type: ApigeeX or ApigeeEdge
-* `apigeelint.externalPluginsDirectory`: Full path to an external plugins directory
+* `apigeelint.profile`: The Apigee proxy profile type: ApigeeX or ApigeeEdge (default: apigeex)
+* `apigeelint.externalPluginsDirectory`: Full path to an external plugins directory (default: none)
+* `apigeelint.excludedTests`: Comma separated list of tests to exclude, e.g. ST001 (default: none)
 
 ## Known Issues
 

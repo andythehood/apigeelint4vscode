@@ -96,6 +96,11 @@
           "type": "string",
           "default": "",
           "description": "Full path to an external plugins directory"
+        },
+        "apigeelint.excludedTests": {
+          "type": "string",
+          "default": "",
+          "description": "Comma separated list of tests to exclude, e.g. ST001 (default: none)"
         }
       }
     }

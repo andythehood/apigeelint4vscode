@@ -45,18 +45,24 @@ export function activate(context: vscode.ExtensionContext) {
 		outputChannel.appendLine('INFO: Running Apigeelint on ' + proxyPath);
 		outputChannel.show(true);
 
-		let formatter: string = vscode.workspace.getConfiguration('apigeelint')!.get('formatter')!;
+		let configuration = vscode.workspace.getConfiguration('apigeelint');
+
+		let formatter: string = configuration!.get('formatter')!;
 		outputChannel.appendLine('INFO: Formatter: ' + formatter);
 
-		let profile: string = vscode.workspace.getConfiguration('apigeelint')!.get('profile')!;
+		let profile: string = configuration!.get('profile')!;
 		outputChannel.appendLine('INFO: Profile: ' + profile);
 
-		let externalPluginsDirectory = vscode.workspace.getConfiguration('apigeelint')!.get('externalPluginsDirectory')!;
+		let externalPluginsDirectory: string = configuration!.get('externalPluginsDirectory')!;
 		outputChannel.appendLine('INFO: External Plugins Directory: ' + externalPluginsDirectory);
+
+		let excludedTests: string = configuration!.get('excludedTests')!;
+		outputChannel.appendLine('INFO: Excluded Tests: ' + excludedTests);
+
 		outputChannel.appendLine('');
 
 		try {
-			const commandLine = 'apigeelint -s . -f ' + formatter + ' --profile ' + profile + (externalPluginsDirectory ? ' -x ' + externalPluginsDirectory : '');
+			const commandLine = 'apigeelint -s . -f ' + formatter + ' --profile ' + profile + (externalPluginsDirectory ? ' -x ' + externalPluginsDirectory : '') + (excludedTests ? ' -e ' + excludedTests : '');
 
 			const { stdout, stderr } = await exec(commandLine, { cwd: proxyPath });
 			if (stderr && stderr.length > 0) {
