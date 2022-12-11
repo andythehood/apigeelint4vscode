@@ -47,7 +47,7 @@
         "apigeelint.formatter": {
           "type": "string",
           "description": "The report formatter to use",
-          "default": "stylish.js",
+          "default": "visualstudio.js",
           "enum": [
             "checkstyle.js",
             "codeframe.js",
