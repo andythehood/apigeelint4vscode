@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "apigeelint" is now active!');
 
-	outputChannel = vscode.window.createOutputChannel('Apigeelint Output');
+	outputChannel = vscode.window.createOutputChannel('Apigeelint');
 
 
 	// The command has been defined in the package.json file
@@ -28,6 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
 		// Display a message box to the user
 		// vscode.window.showInformationMessage('Running ApigeeLint ...',);
 
+		outputChannel.show(true);
 
 		let proxyPath: string = uri.fsPath;
 		if (!proxyPath.endsWith('apiproxy')) {
@@ -43,7 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		}
 		outputChannel.appendLine('INFO: Running Apigeelint on ' + proxyPath);
-		outputChannel.show(true);
+
 
 		let configuration = vscode.workspace.getConfiguration('apigeelint');
 
@@ -57,28 +58,48 @@ export function activate(context: vscode.ExtensionContext) {
 		outputChannel.appendLine('INFO: External Plugins Directory: ' + externalPluginsDirectory);
 
 		let excludedTests: string = configuration!.get('excludedTests')!;
+		excludedTests.replace(/\s/g, "");
 		outputChannel.appendLine('INFO: Excluded Tests: ' + excludedTests);
 
 		outputChannel.appendLine('');
 
 		try {
-			const commandLine = 'apigeelint -s . -f ' + formatter + ' --profile ' + profile + (externalPluginsDirectory ? ' -x ' + externalPluginsDirectory : '') + (excludedTests ? ' -e ' + excludedTests : '');
+			let commandLine = 'apigeelint -s .';
+			commandLine += ' -f ' + formatter;
+			commandLine += ' --profile ' + profile;
+			commandLine += externalPluginsDirectory ? ' -x ' + externalPluginsDirectory : '';
+			commandLine += excludedTests ? ' -e ' + excludedTests : '';
 
 			const { stdout, stderr } = await exec(commandLine, { cwd: proxyPath });
 			if (stderr && stderr.length > 0) {
 				outputChannel.appendLine(stderr);
 			}
 			if (stdout && stdout.length > 0) {
-				outputChannel.appendLine(stdout);
+				if (['visualstudio.js', 'stylish.js', 'table.js', 'unix.js'].includes(formatter)) {
+					const proxyPathParent = proxyPath.slice(0, proxyPath.lastIndexOf(path.sep));
+					const lines: string[] = stdout.split(/\n/);
+					lines.forEach((line) => {
+						outputChannel.appendLine((line.startsWith(path.sep + 'apiproxy') ? proxyPathParent : '') + line);
+					});
+				} else {
+					outputChannel.appendLine(stdout);
+				}
 			}
 		}
 		catch (err: any) {
-			if (err.stderr) {
+			if (err.stderr && err.stderr.length > 0) {
 				outputChannel.appendLine(err.stderr);
 			}
-			if (err.stdout) {
-
-				outputChannel.appendLine(err.stdout);
+			if (err.stdout && err.stdout.length > 0) {
+				if (['visualstudio.js', 'stylish.js', 'table.js', 'unix.js'].includes(formatter)) {
+					const proxyPathParent = proxyPath.slice(0, proxyPath.lastIndexOf(path.sep));
+					const lines: string[] = err.stdout.split(/\n/);
+					lines.forEach((line) => {
+						outputChannel.appendLine((line.startsWith(path.sep + 'apiproxy') ? proxyPathParent : '') + line);
+					});
+				} else {
+					outputChannel.appendLine(err.stdout);
+				}
 			}
 		}
 	});
@@ -86,7 +107,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 }
 
-function exec(command: string, options: cp.ExecOptions): Promise<{ stdout: string; stderr: string }> {
+const exec = (command: string, options: cp.ExecOptions): Promise<{ stdout: string; stderr: string }> => {
 	return new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
 		cp.exec(command, options, (error, stdout, stderr) => {
 			if (error) {
@@ -95,7 +116,7 @@ function exec(command: string, options: cp.ExecOptions): Promise<{ stdout: strin
 			resolve({ stdout, stderr });
 		});
 	});
-}
+};
 
 
 // This method is called when your extension is deactivated
