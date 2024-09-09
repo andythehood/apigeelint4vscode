@@ -4,7 +4,7 @@
   "publisher": "andythehood",
   "description": "Run apigeelint on your Apigee API Proxy",
   "icon": "images/api-management-platform.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/andythehood/apigeelint4vscode"
